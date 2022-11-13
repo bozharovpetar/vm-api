@@ -13,6 +13,12 @@ namespace VM.Repository.Implementation
         private readonly ApplicationDbContext _context;
         private DbSet<Coffee> entities;
 
+        public CoffeeRepository(ApplicationDbContext context)
+        {
+            this._context = context;
+            this.entities = context.Set<Coffee>();
+        }
+
         public IEnumerable<Coffee> GetAll()
         {
             return entities.AsEnumerable();
