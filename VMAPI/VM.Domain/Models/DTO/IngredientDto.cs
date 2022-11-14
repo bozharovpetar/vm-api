@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace VM.Domain.Models
 {
-    public class CoffeeDto
+    public class IngredientDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public List<IngredientDto> Ingredients { get; set; }
-
-        public CoffeeDto()
-        {
-            Ingredients = new List<IngredientDto>();
-        }
+        public int LeftInStock { get; set; }
+        public int Price { get; set; }
+        public string MeasurementUnit { get; set; }
     }
 }

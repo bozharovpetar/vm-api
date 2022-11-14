@@ -12,11 +12,11 @@ namespace VM.Service
             set { _builder = value; }
         }
 
-        public void BuildCustomCoffee(CustomCoffeeDto model)
+        public void BuildCustomCoffee(List<AddIngredientDto> ingredients)
         {
-            foreach(var ingredient in model.Ingredients)
+            foreach(var ingredient in ingredients)
             {
-                _builder.SetIngredient(ingredient.IngredientId, ingredient.Quantity);
+                _builder.SetIngredient(ingredient.Id, ingredient.Quantity);
             }
         }
 

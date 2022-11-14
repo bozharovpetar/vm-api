@@ -4,6 +4,7 @@ namespace VM.Service
 {
     public interface ICoffeeService
     {
-        List<CoffeeDto> GetAllCoffees();
+        List<CoffeeLookupDto> GetAllCoffees();
+        CoffeeDto GetCoffeeById(Guid id);
     }
 }

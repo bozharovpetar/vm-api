@@ -9,7 +9,8 @@ namespace VM.Web
     {
         public MappingProfile()
         {
-            CreateMap<Coffee, CoffeeDto>();
+            CreateMap<Coffee, CoffeeLookupDto>();
+            CreateMap<Ingredient, IngredientDto>();
         }
     }
 }

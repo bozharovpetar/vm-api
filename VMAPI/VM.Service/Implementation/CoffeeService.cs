@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VM.Domain.Models;
 using VM.Repository;
+using VM.Service.Implementation;
 
 namespace VM.Service
 {
@@ -22,17 +23,57 @@ namespace VM.Service
             _mapper = mapper;
         }
 
-        public List<CoffeeDto> GetAllCoffees()
+        public List<CoffeeLookupDto> GetAllCoffees()
         {
-            List<CoffeeDto> result = new List<CoffeeDto>();
+            List<CoffeeLookupDto> result = new List<CoffeeLookupDto>();
 
             var coffees = _coffeeRepository.GetAll();
-            foreach(var coffee in coffees)
+            foreach (var coffee in coffees)
             {
-                result.Add(_mapper.Map<CoffeeDto>(coffee));
+                var entry = _mapper.Map<CoffeeLookupDto>(coffee);
+
+                int price = 0;
+
+                foreach (var ingredient in coffee.Ingredients)
+                {
+                    var entity = _ingredientRepository.Get(ingredient.IngredientId);
+                    if (entity != null)
+                    {
+                        price += entity.Price * ingredient.Quantity;
+                    }
+                }
+
+                entry.Price = price;
+
+                result.Add(entry);
             }
 
             return result;
+        }
+
+        public CoffeeDto GetCoffeeById(Guid id)
+        {
+            var entity = _coffeeRepository.Get(id);
+            if (entity != null)
+            {
+                CoffeeDto result = new CoffeeDto();
+                result.Id = entity.Id;
+                result.Title = entity.Title;
+                foreach (var entry in entity.Ingredients)
+                {
+                    var ingredient = _ingredientRepository.Get(entry.IngredientId);
+                    if (ingredient != null)
+                    {
+                        result.Ingredients.Add(ingredient.MapToIngredientDto());
+                    }
+                }
+
+                return result;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

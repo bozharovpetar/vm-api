@@ -6,50 +6,50 @@ using System.Text;
 using System.Threading.Tasks;
 using VM.Domain.Models;
 
-namespace VM.Repository.Implementation
+namespace VM.Repository
 {
-    public class CoffeeRepository : ICoffeeRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly ApplicationDbContext _context;
-        private DbSet<Coffee> entities;
+        private DbSet<Order> entities;
 
-        public CoffeeRepository(ApplicationDbContext context)
+        public OrderRepository(ApplicationDbContext context)
         {
             this._context = context;
-            this.entities = context.Set<Coffee>();
+            this.entities = context.Set<Order>();
         }
 
-        public IEnumerable<Coffee> GetAll()
+        public IEnumerable<Order> GetAll()
         {
             return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).AsEnumerable();
         }
 
-        public Coffee Get(Guid? id)
+        public Order Get(Guid? id)
         {
-            return entities.Include(x=>x.Ingredients).ThenInclude(x => x.Ingredient).FirstOrDefault(e => e.Id == id);
+            return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).FirstOrDefault(e => e.Id == id);
         }
 
-        public void Insert(Coffee entity)
+        public void Insert(Order entity)
         {
             entities.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Update(Coffee entity)
+        public void Update(Order entity)
         {
             entities.Update(entity);
             _context.SaveChanges();
         }
 
-        public void Delete(Coffee entity)
+        public void Delete(Order entity)
         {
             entities.Remove(entity);
             _context.SaveChanges();
         }
 
-        public Coffee GetByName(string name)
+        public bool Contains(Order order)
         {
-            return entities.FirstOrDefault(x => x.Title.ToLower() == name.ToLower());
+            return entities.Any(x => x.Id == order.Id);
         }
     }
 }

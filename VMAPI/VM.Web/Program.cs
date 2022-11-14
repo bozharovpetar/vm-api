@@ -24,10 +24,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICoffeeRepository), typeof(CoffeeRepository));
 builder.Services.AddScoped(typeof(IIngredientRepository), typeof(IngredientRepository));
+builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
 #endregion
 
 #region Services
 builder.Services.AddTransient(typeof(ICoffeeService), typeof(CoffeeService));
+builder.Services.AddTransient(typeof(IIngredientService), typeof(IngredientService));
+builder.Services.AddTransient(typeof(IOrderService), typeof(OrderService));
 builder.Services.AddTransient(typeof(IBuilder), typeof(CoffeeBuilder));
 // builder.Services.AddTransient(typeof(IBuilder), typeof(ReceiptBuilder));
 #endregion

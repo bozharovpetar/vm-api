@@ -14,14 +14,20 @@ namespace VM.Repository
         private DbSet<Ingredient> entities;
         // private readonly IMapper _mapper;
 
+        public IngredientRepository(ApplicationDbContext context)
+        {
+            this._context = context;
+            this.entities = context.Set<Ingredient>();
+        }
+
         public IEnumerable<Ingredient> GetAll()
         {
-            return entities.AsEnumerable();
+            return entities.Include(x => x.Coffees).ThenInclude(x => x.Coffee).Include(x => x.MeasurementUnit).AsEnumerable();
         }
 
         public Ingredient Get(Guid? id)
         {
-            return entities.FirstOrDefault(e => e.Id == id);
+            return entities.Include(x => x.Coffees).ThenInclude(x => x.Coffee).FirstOrDefault(e => e.Id == id);
         }
 
         public void Insert(Ingredient entity)

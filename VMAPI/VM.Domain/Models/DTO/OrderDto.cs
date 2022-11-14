@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace VM.Domain.Models
 {
-    public class AddIngredientDto
+    public class OrderDto
     {
         public Guid Id { get; set; }
-        public int Quantity { get; set; }
+        public DateTime Date { get; set; }
+        public int Price { get; set; }
+        public List<IngredientDto> Ingredients { get; set; }
     }
 }
