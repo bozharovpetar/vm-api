@@ -1,10 +1,9 @@
-using VM.Repository;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using VM.Repository;
 using VM.Repository.Implementation;
 using VM.Service;
-using VM.Service.Interface;
 using VM.Service.Implementation;
+using VM.Service.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 

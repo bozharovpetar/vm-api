@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VM.Domain.Models;
+﻿using VM.Domain.Models;
 using VM.Repository;
 using VM.Service.Interface;
 
@@ -57,6 +52,7 @@ namespace VM.Service.Implementation
                 }
                 else
                 {
+                    Reset();
                     throw new Exception("We are sorry, we can not make the coffee you requested because one or more ingredients from it is out of stock.");
                 }
             }
@@ -72,15 +68,17 @@ namespace VM.Service.Implementation
             if (coffee != null)
             {
                 var canMakeCoffee = true;
-                _order.Coffee = coffee;
-                _order.CoffeeId = coffeeId;
-                _order.Date = DateTime.Now;
+                
                 var price = 0;
                 foreach (var entry in coffee.Ingredients)
                 {
                     var ingredient = _ingredientRepository.Get(entry.IngredientId);
                     if(ingredient.LeftInStock >= entry.Quantity)
                     {
+                        _order.Coffee = coffee;
+                        _order.CoffeeId = coffeeId;
+                        _order.Date = DateTime.Now;
+
                         if (!_order.Ingredients.Any(x => x.IngredientId == ingredient.Id))
                         {
                             _order.Ingredients.Add(new OrderToIngredient { IngredientId = ingredient.Id, OrderId = _order.Id, Quantity = entry.Quantity });
@@ -112,6 +110,7 @@ namespace VM.Service.Implementation
                 }
                 else
                 {
+                    Reset();
                     throw new Exception("We are sorry, we can not make the coffee you requested because one or more ingredients from it is out of stock.");
                 }
             }

@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VM.Domain.Models;
 
 namespace VM.Repository
@@ -21,7 +16,7 @@ namespace VM.Repository
 
         public IEnumerable<Order> GetAll()
         {
-            return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).ThenInclude(x=>x.MeasurementUnit).AsEnumerable();
+            return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).ThenInclude(x => x.MeasurementUnit).AsEnumerable();
         }
 
         public Order Get(Guid? id)
