@@ -21,12 +21,12 @@ namespace VM.Repository
 
         public IEnumerable<Order> GetAll()
         {
-            return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).AsEnumerable();
+            return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).ThenInclude(x=>x.MeasurementUnit).AsEnumerable();
         }
 
         public Order Get(Guid? id)
         {
-            return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).FirstOrDefault(e => e.Id == id);
+            return entities.Include(x => x.Ingredients).ThenInclude(x => x.Ingredient).ThenInclude(x => x.MeasurementUnit).FirstOrDefault(e => e.Id == id);
         }
 
         public void Insert(Order entity)

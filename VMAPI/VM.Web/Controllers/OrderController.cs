@@ -18,10 +18,10 @@ namespace VM.Web.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet("get/{id}")]
-        public IActionResult GetOrderById(Guid id)
+        [HttpGet("get")]
+        public IActionResult GetOrderById(string id)
         {
-            var result = _orderService.GetOrderById(id);
+            var result = _orderService.GetOrderById(Guid.Parse(id));
             return new JsonResult(result);
         }
 

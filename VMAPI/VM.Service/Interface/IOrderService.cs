@@ -10,7 +10,7 @@ namespace VM.Service.Interface
     public interface IOrderService
     {
         OrderDto GetOrderById(Guid id);
-        bool PlaceCoffeeOrder(Guid coffeeId);
-        bool PlaceCustomCoffeeOrder(List<AddIngredientDto> ingredients);
+        Guid PlaceCoffeeOrder(Guid coffeeId);
+        Guid PlaceCustomCoffeeOrder(List<AddIngredientDto> ingredients);
     }
 }

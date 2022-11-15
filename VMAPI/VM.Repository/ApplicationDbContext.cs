@@ -63,13 +63,13 @@ namespace VM.Repository
 
             #region Seeding ingredients
             builder.Entity<Ingredient>().HasData(
-                new Ingredient { Id = Guid.Parse("b63bf9e8-960e-4509-b05e-a906447f5eb3"), LeftInStock = 2000, Title = "Milk", MeasurementUnitId = Guid.Parse("4e482d6c-a09a-404a-b8b5-ca76c5d9e7fc"), Price = 10 },
+                new Ingredient { Id = Guid.Parse("b63bf9e8-960e-4509-b05e-a906447f5eb3"), LeftInStock = 80, Title = "Milk", MeasurementUnitId = Guid.Parse("d9c38164-1842-4b4b-a618-7b7e19b72f5e"), Price = 10 },
                 new Ingredient { Id = Guid.Parse("1b564bb8-4d0b-460f-b99b-9a207b96e32e"), LeftInStock = 60, Title = "Sugar", MeasurementUnitId = Guid.Parse("596d304e-0e6b-4be1-b541-7869ef6b72fd"), Price = 5 },
-                new Ingredient { Id = Guid.Parse("cf438737-b6ce-4a63-ba74-a46082f670f3"), LeftInStock = 2000, Title = "Water", MeasurementUnitId = Guid.Parse("4e482d6c-a09a-404a-b8b5-ca76c5d9e7fc"), Price = 10 },
-                new Ingredient { Id = Guid.Parse("b6f56808-1101-48d3-903a-e579263ba726"), LeftInStock = 60, Title = "Espresso", MeasurementUnitId = Guid.Parse("95245bdd-c1bb-4963-87c6-fad7134a0c95"), Price = 15 },
-                new Ingredient { Id = Guid.Parse("7aa3101b-718e-4a41-9b7a-61777b19a1ae"), LeftInStock = 60, Title = "Brown sugar", MeasurementUnitId = Guid.Parse("596d304e-0e6b-4be1-b541-7869ef6b72fd"), Price = 5 },
+                new Ingredient { Id = Guid.Parse("cf438737-b6ce-4a63-ba74-a46082f670f3"), LeftInStock = 80, Title = "Water", MeasurementUnitId = Guid.Parse("d9c38164-1842-4b4b-a618-7b7e19b72f5e"), Price = 5 },
+                new Ingredient { Id = Guid.Parse("b6f56808-1101-48d3-903a-e579263ba726"), LeftInStock = 60, Title = "Espresso", MeasurementUnitId = Guid.Parse("95245bdd-c1bb-4963-87c6-fad7134a0c95"), Price = 5 },
+                new Ingredient { Id = Guid.Parse("7aa3101b-718e-4a41-9b7a-61777b19a1ae"), LeftInStock = 60, Title = "Brown sugar", MeasurementUnitId = Guid.Parse("596d304e-0e6b-4be1-b541-7869ef6b72fd"), Price = 10 },
                 new Ingredient { Id = Guid.Parse("75c17127-e3ed-4e42-bf13-27299176a457"), LeftInStock = 40, Title = "Creamer", MeasurementUnitId = Guid.Parse("d9c38164-1842-4b4b-a618-7b7e19b72f5e"), Price = 15 },
-                new Ingredient { Id = Guid.Parse("d1379949-4fb2-4fcf-8fa2-b57dbeb7d6f7"), LeftInStock = 100, Title = "Ice", MeasurementUnitId = Guid.Parse("56eacbd4-53ac-447d-8e2f-e8af3fd094c1"), Price = 5 }
+                new Ingredient { Id = Guid.Parse("d1379949-4fb2-4fcf-8fa2-b57dbeb7d6f7"), LeftInStock = 50, Title = "Ice", MeasurementUnitId = Guid.Parse("56eacbd4-53ac-447d-8e2f-e8af3fd094c1"), Price = 5 }
             );
             #endregion
 

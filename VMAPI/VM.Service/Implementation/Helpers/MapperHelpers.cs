@@ -21,6 +21,17 @@ namespace VM.Service.Implementation
             return coffeeIngredient;
         }
 
+        public static OrderIngredientDto MapToOrderIngredientDto(this Ingredient ingredient)
+        {
+            OrderIngredientDto coffeeIngredient = new OrderIngredientDto();
+            coffeeIngredient.Id = ingredient.Id;
+            coffeeIngredient.Title = ingredient.Title;
+            coffeeIngredient.Price = ingredient.Price;
+            coffeeIngredient.MeasurementUnit = ingredient.MeasurementUnit.Title;
+
+            return coffeeIngredient;
+        }
+
         public static OrderDto MapToOrderDto(this Order order)
         {
             OrderDto orderDto = new OrderDto();

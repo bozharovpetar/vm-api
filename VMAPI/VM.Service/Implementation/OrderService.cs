@@ -37,7 +37,10 @@ namespace VM.Service
                     var entity = _ingredientRepository.Get(ingredient.IngredientId);
                     if (entity != null)
                     {
-                        result.Ingredients.Add(entity.MapToIngredientDto());
+                        var orderIngredient = entity.MapToOrderIngredientDto();
+                        orderIngredient.Quantity = ingredient.Quantity;
+
+                        result.Ingredients.Add(orderIngredient);
                     }
                 }
 
@@ -49,50 +52,50 @@ namespace VM.Service
             }
         }
 
-        public bool PlaceCoffeeOrder(Guid coffeeId)
+        public Guid PlaceCoffeeOrder(Guid coffeeId)
         {
             var director = new Director();
             var builder = new CoffeeBuilder(_ingredientRepository, _coffeeRepository);
 
             director.Builder = builder;
-
-            director.BuildPredefinedCoffee(coffeeId);
-
-            var newOrder = builder.GetOrder();
-
-            if (newOrder != null)
+            try
             {
-                if (!_orderRepository.Contains(newOrder))
-                {
-                    _orderRepository.Insert(newOrder);
-                    return true;
-                }
+                director.BuildPredefinedCoffee(coffeeId);
+
+                var newOrder = builder.GetOrder();
+
+                _orderRepository.Insert(newOrder);
+
+                return newOrder.Id;
+            }
+            catch (Exception)
+            {
+                return Guid.Empty;
             }
 
-            return false;
         }
 
-        public bool PlaceCustomCoffeeOrder(List<AddIngredientDto> ingredients)
+        public Guid PlaceCustomCoffeeOrder(List<AddIngredientDto> ingredients)
         {
             var director = new Director();
             var builder = new CoffeeBuilder(_ingredientRepository, _coffeeRepository);
 
             director.Builder = builder;
 
-            director.BuildCustomCoffee(ingredients);
-
-            var newOrder = builder.GetOrder();
-
-            if (newOrder != null)
+            try
             {
-                if (!_orderRepository.Contains(newOrder))
-                {
-                    _orderRepository.Insert(newOrder);
-                    return true;
-                }
-            }
+                director.BuildCustomCoffee(ingredients);
 
-            return false;
+                var newOrder = builder.GetOrder();
+
+                _orderRepository.Insert(newOrder);
+
+                return newOrder.Id;
+            }
+            catch (Exception)
+            {
+                return Guid.Empty;
+            }
         }
     }
 }

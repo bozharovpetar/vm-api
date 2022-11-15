@@ -28,6 +28,7 @@ namespace VM.Service.Implementation
         public void Reset()
         {
             _order = new Order();
+            _order.Id = Guid.NewGuid();
             _order.Ingredients = new List<OrderToIngredient>();
         }
 
@@ -37,16 +38,27 @@ namespace VM.Service.Implementation
             var ingredient = _ingredientRepository.Get(ingredientId);
             if (ingredient != null)
             {
-                if (!_order.Ingredients.Any(x => x.IngredientId == ingredient.Id))
+                if(ingredient.LeftInStock >= quantity)
                 {
-                    _order.Ingredients.Add(new OrderToIngredient { IngredientId = ingredient.Id, OrderId = _order.Id, Quantity = quantity });
+                    if (!_order.Ingredients.Any(x => x.IngredientId == ingredient.Id))
+                    {
+                        _order.Ingredients.Add(new OrderToIngredient { IngredientId = ingredient.Id, OrderId = _order.Id, Quantity = quantity });
+                        ingredient.LeftInStock -= quantity;
+                        _ingredientRepository.Update(ingredient);
+                    }
+                    else
+                    {
+                        _order.Ingredients.FirstOrDefault(x => x.IngredientId == ingredient.Id)!.Quantity += quantity;
+                        ingredient.LeftInStock -= quantity;
+                        _ingredientRepository.Update(ingredient);
+                    }
+
+                    _order.TotalPrice += ingredient.Price * quantity;
                 }
                 else
                 {
-                    _order.Ingredients.FirstOrDefault(x => x.IngredientId == ingredient.Id).Quantity += quantity;
+                    throw new Exception("We are sorry, we can not make the coffee you requested because one or more ingredients from it is out of stock.");
                 }
-
-                _order.TotalPrice += ingredient.Price * quantity;
             }
             else
             {
@@ -59,6 +71,7 @@ namespace VM.Service.Implementation
             var coffee = _coffeeRepository.Get(coffeeId);
             if (coffee != null)
             {
+                var canMakeCoffee = true;
                 _order.Coffee = coffee;
                 _order.CoffeeId = coffeeId;
                 _order.Date = DateTime.Now;
@@ -66,23 +79,41 @@ namespace VM.Service.Implementation
                 foreach (var entry in coffee.Ingredients)
                 {
                     var ingredient = _ingredientRepository.Get(entry.IngredientId);
-                    if (!_order.Ingredients.Any(x => x.IngredientId == ingredient.Id))
+                    if(ingredient.LeftInStock >= entry.Quantity)
                     {
-                        _order.Ingredients.Add(new OrderToIngredient { IngredientId = ingredient.Id, OrderId = _order.Id, Quantity = entry.Quantity });
+                        if (!_order.Ingredients.Any(x => x.IngredientId == ingredient.Id))
+                        {
+                            _order.Ingredients.Add(new OrderToIngredient { IngredientId = ingredient.Id, OrderId = _order.Id, Quantity = entry.Quantity });
+                            ingredient.LeftInStock -= entry.Quantity;
+                            _ingredientRepository.Update(ingredient);
+                        }
+                        else
+                        {
+                            _order.Ingredients.FirstOrDefault(x => x.IngredientId == ingredient.Id)!.Quantity += entry.Quantity;
+                            ingredient.LeftInStock -= entry.Quantity;
+                            _ingredientRepository.Update(ingredient);
+                        }
                     }
                     else
                     {
-                        _order.Ingredients.FirstOrDefault(x => x.IngredientId == ingredient.Id).Quantity += entry.Quantity;
+                        canMakeCoffee = false;
                     }
                 }
 
-                foreach(var ingredient in _order.Ingredients)
+                if (canMakeCoffee)
                 {
-                    var entity = _ingredientRepository.Get(ingredient.IngredientId);
-                    price += entity.Price * ingredient.Quantity;
-                }
+                    foreach (var ingredient in _order.Ingredients)
+                    {
+                        var entity = _ingredientRepository.Get(ingredient.IngredientId);
+                        price += entity.Price * ingredient.Quantity;
+                    }
 
-                _order.TotalPrice= price;
+                    _order.TotalPrice= price;
+                }
+                else
+                {
+                    throw new Exception("We are sorry, we can not make the coffee you requested because one or more ingredients from it is out of stock.");
+                }
             }
         }
 
