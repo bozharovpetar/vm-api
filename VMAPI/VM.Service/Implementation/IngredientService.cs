@@ -8,14 +8,10 @@ namespace VM.Service
     public class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository _ingredientRepository;
-        private readonly ICoffeeRepository _coffeeRepository;
-        private readonly IMapper _mapper;
 
-        public IngredientService(IIngredientRepository ingredientRepository, ICoffeeRepository coffeeRepository, IMapper mapper)
+        public IngredientService(IIngredientRepository ingredientRepository)
         {
             _ingredientRepository = ingredientRepository;
-            _coffeeRepository = coffeeRepository;
-            _mapper = mapper;
         }
 
         public List<IngredientDto> GetAllIngredients()

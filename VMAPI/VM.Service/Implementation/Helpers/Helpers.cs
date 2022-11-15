@@ -2,7 +2,7 @@
 
 namespace VM.Service.Implementation
 {
-    public static class MapperHelpers
+    public static class Helpers
     {
         public static IngredientDto MapToIngredientDto(this Ingredient ingredient)
         {
