@@ -40,7 +40,9 @@ namespace VM.Repository
                 new Coffee { Id = Guid.Parse("525b8dec-871d-47d0-92d1-f2007a07a22a"), Title = "Americano" },
                 new Coffee { Id = Guid.Parse("0321f843-84d0-4006-9d36-47231e6b03b1"), Title = "Latte" },
                 new Coffee { Id = Guid.Parse("6c6c8d1e-6f23-4ca0-950a-f0eb8b6e8b14"), Title = "Cappuchino" },
-                new Coffee { Id = Guid.Parse("1c4e70cb-98d1-4719-960b-49c1a8e02322"), Title = "Mocha" }
+                new Coffee { Id = Guid.Parse("1c4e70cb-98d1-4719-960b-49c1a8e02322"), Title = "Mocha" },
+                new Coffee { Id = Guid.Parse("cd5ba979-52cc-4f73-9eb1-13cb54337605"), Title = "Turkish" },
+                new Coffee { Id = Guid.Parse("f388670c-9f0c-4c3a-a426-51e749197f21"), Title = "Basic" }
             );
             #endregion
 
@@ -95,7 +97,14 @@ namespace VM.Repository
                   new CoffeeToIngredient { CoffeeId = Guid.Parse("1c4e70cb-98d1-4719-960b-49c1a8e02322"), IngredientId = Guid.Parse("b63bf9e8-960e-4509-b05e-a906447f5eb3"), Quantity = 5 },
                   new CoffeeToIngredient { CoffeeId = Guid.Parse("1c4e70cb-98d1-4719-960b-49c1a8e02322"), IngredientId = Guid.Parse("1b564bb8-4d0b-460f-b99b-9a207b96e32e"), Quantity = 2 },
                   new CoffeeToIngredient { CoffeeId = Guid.Parse("1c4e70cb-98d1-4719-960b-49c1a8e02322"), IngredientId = Guid.Parse("7aa3101b-718e-4a41-9b7a-61777b19a1ae"), Quantity = 3 },
-                  new CoffeeToIngredient { CoffeeId = Guid.Parse("1c4e70cb-98d1-4719-960b-49c1a8e02322"), IngredientId = Guid.Parse("75c17127-e3ed-4e42-bf13-27299176a457"), Quantity = 3 }
+                  new CoffeeToIngredient { CoffeeId = Guid.Parse("1c4e70cb-98d1-4719-960b-49c1a8e02322"), IngredientId = Guid.Parse("75c17127-e3ed-4e42-bf13-27299176a457"), Quantity = 3 },
+                  // Turkish
+                  new CoffeeToIngredient { CoffeeId = Guid.Parse("cd5ba979-52cc-4f73-9eb1-13cb54337605"), IngredientId = Guid.Parse("cf438737-b6ce-4a63-ba74-a46082f670f3"), Quantity = 2 },
+                  new CoffeeToIngredient { CoffeeId = Guid.Parse("cd5ba979-52cc-4f73-9eb1-13cb54337605"), IngredientId = Guid.Parse("b6f56808-1101-48d3-903a-e579263ba726"), Quantity = 3 },
+                  // Basic
+                  new CoffeeToIngredient { CoffeeId = Guid.Parse("f388670c-9f0c-4c3a-a426-51e749197f21"), IngredientId = Guid.Parse("1b564bb8-4d0b-460f-b99b-9a207b96e32e"), Quantity = 1 },
+                  new CoffeeToIngredient { CoffeeId = Guid.Parse("f388670c-9f0c-4c3a-a426-51e749197f21"), IngredientId = Guid.Parse("cf438737-b6ce-4a63-ba74-a46082f670f3"), Quantity = 2 },
+                  new CoffeeToIngredient { CoffeeId = Guid.Parse("f388670c-9f0c-4c3a-a426-51e749197f21"), IngredientId = Guid.Parse("b6f56808-1101-48d3-903a-e579263ba726"), Quantity = 3 }
             );
             #endregion
         }
