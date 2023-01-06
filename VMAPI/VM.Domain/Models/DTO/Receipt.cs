@@ -8,6 +8,7 @@ namespace VM.Domain.Models
         public string Code { get; set; }
         public List<Ingredient> Ingredients { get; set; }
         public int TotalPrice { get; set; }
+        public string AdditionalInformaion { get; set; }
 
         public Receipt()
         {
